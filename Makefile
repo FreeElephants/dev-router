@@ -1,7 +1,9 @@
+$(shell cp -n dist.env .env)
+include .env
+
 install:
-	cp docker.env .env
 	docker compose pull
-	docker network create dev-router
+	docker network create $(DEV_ROUTER_NETWORK)
 
 run:
 	docker compose up -d

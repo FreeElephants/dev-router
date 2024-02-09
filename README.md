@@ -1,8 +1,6 @@
 #  Development Router
 
-Automated Reverse Proxy for local docker services. 
-
-Based on https://github.com/nginx-proxy/nginx-proxy. 
+Automated Reverse Proxy and virtual hosts for local docker services.
 
 ## Usage:
 
@@ -13,18 +11,15 @@ make run
 
 1. Add to upstream service docker-compose configuration:
 ```yaml
-version: "3.7"
-
 services:
   some-service:
-    networks:
-      dev-router:
-      default:
-    environment:
-      - VIRTUAL_HOST=some-service.local
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.some-service.rule=Host(`some-service.local`)"
+      - "traefik.http.routers.some-service.entrypoints=web"
 ```
 
-2. Add to service domain to `/etc/hosts`
+2. Add virtual host name to `/etc/hosts`
 ```
 127.0.0.1   some-service.local
 ```
