@@ -1,5 +1,5 @@
-_TITLE := "\033[32m[%s]\033[0m %s\n" # Green text for "printf"
-_ERROR := "\033[31m[%s]\033[0m %s\n" # Red text for "printf"
+_COLOR_GREEN := "\033[32m[%s]\033[0m %s\n"
+_COLOR_RED := "\033[31m[%s]\033[0m %s\n"
 
 include .env
 
@@ -8,10 +8,10 @@ include .env
 		REPLY="" ; \
 		read -p "⚠  Missing .env file. Copy from dist.env? [y/n] > " -r ; \
 		if [[ ! $$REPLY =~ ^[Yy]$$ ]]; then \
-			printf $(_ERROR) "No" "Copying cancelled" ; \
+			printf $(_COLOR_RED) "No" "Copying cancelled" ; \
 			exit 1 ; \
 		else \
-			printf $(_TITLE) "Yes" "Copying from dist.env" ; \
+			printf $(_COLOR_GREEN) "Yes" "Copying from dist.env" ; \
 			cp -i dist.env .env ; \
 			exit 0; \
 		fi \
