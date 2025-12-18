@@ -8,7 +8,7 @@ include .env
 		REPLY="" ; \
 		read -p "⚠  Missing .env file. Copy from dist.env? [y/n] > " -r ; \
 		if [[ ! $$REPLY =~ ^[Yy]$$ ]]; then \
-			printf $(_ERROR) "No" "Copying canceled" ; \
+			printf $(_ERROR) "No" "Copying cancelled" ; \
 			exit 1 ; \
 		else \
 			printf $(_TITLE) "Yes" "Copying from dist.env" ; \
