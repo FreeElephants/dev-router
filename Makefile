@@ -1,4 +1,4 @@
-$(shell cp -n dist.env .env)
+$(shell cp --update=none dist.env .env)
 include .env
 
 install:
