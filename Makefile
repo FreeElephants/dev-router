@@ -5,10 +5,8 @@ include .env
 		REPLY="" ; \
 		read -p "Missing .env file. Copy from dist.env? [y/n] > " -r ; \
 		if [[ ! $$REPLY =~ ^[Yy]$$ ]]; then \
-			printf "Copying cancelled" ; \
 			exit 1 ; \
 		else \
-			printf "Copying from dist.env" ; \
 			cp -i dist.env .env ; \
 		fi \
 	fi
