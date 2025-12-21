@@ -1,20 +1,10 @@
-include .env
-
-.env: dist.env
-	@if [[ -z "$(CI)" ]]; then \
-		REPLY="" ; \
-		read -p "Missing .env file. Copy from dist.env? [y/n] > " -r ; \
-		if [[ ! $$REPLY =~ ^[Yy]$$ ]]; then \
-			exit 1 ; \
-		else \
-			cp -i dist.env .env ; \
-		fi \
-	fi
+-include .env
 
 .PHONY: install
 install:
+	cp -i dist.env .env
 	docker compose pull
-	docker network create $(DEV_ROUTER_NETWORK)
+	. ./.env && docker network create $$DEV_ROUTER_NETWORK
 
 .PHONY: run
 run:
