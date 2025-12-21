@@ -1,18 +1,22 @@
-$(shell cp --update=none dist.env .env)
-include .env
+-include .env
 
+.PHONY: install
 install:
+	cp -i dist.env .env
 	docker compose pull
-	docker network create $(DEV_ROUTER_NETWORK)
+	. ./.env && docker network create $$DEV_ROUTER_NETWORK
 
+.PHONY: run
 run:
 	docker compose up -d
 
+.PHONY: stop
 stop:
 	docker compose down
 
-restart: stop run
-
+.PHONY: remove
 remove: stop
-	docker network remove dev-router
+	docker network remove $(DEV_ROUTER_NETWORK) 
 
+.PHONY: restart
+restart: stop run
