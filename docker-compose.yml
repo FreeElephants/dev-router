@@ -1,20 +1,22 @@
 services:
   traefik:
-    image: traefik:${TRAEFIK_IMAGE_TAG}
+    image: "traefik:v3.4"
     restart: unless-stopped
-    container_name: dev-router
+    security_opt:
+      - no-new-privileges:true
     command:
-      - --api.insecure=true
-      - --providers.docker=true
-      - --providers.docker.exposedbydefault=false
-      - --entrypoints.web.address=:80
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=proxy"
+      - "--entryPoints.web.address=:80"
+      - "--api.insecure=true"
     ports:
       - ${HOST_WEB_PORT}:80
       - ${HOST_UI_PORT}:8080
     networks:
       dev-router:
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
 networks:
   dev-router:
